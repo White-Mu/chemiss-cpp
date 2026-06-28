@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chemiss - 化学棋</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>⚗️ Chemiss 化学棋</h1>
+            <div class="status-bar">
+                <span id="turn-indicator">白方回合</span>
+                <span id="turn-number">第 1 回合</span>
+                <span id="game-status">进行中</span>
+            </div>
+            <div class="controls">
+                <button id="btn-new-game">新游戏</button>
+                <button id="btn-draw">和棋</button>
+                <button id="btn-accept-draw" style="display:none;">同意和棋</button>
+            </div>
+        </header>
+
+        <div class="game-area">
+            <div class="board-container">
+                <div class="board" id="board"></div>
+            </div>
+
+            <div class="sidebar">
+                <div class="panel info-panel">
+                    <h3>选中棋子</h3>
+                    <div id="selected-piece-info">
+                        <p>点击棋子查看详情</p>
+                    </div>
+                </div>
+
+                <div class="panel bonds-panel">
+                    <h3>键合状态</h3>
+                    <div id="bonds-list"></div>
+                </div>
+
+                <div class="panel legend-panel">
+                    <h3>图例</h3>
+                    <div class="legend-item"><span class="legend-dot normal"></span> 正常</div>
+                    <div class="legend-item"><span class="legend-dot stunned"></span> 眩晕</div>
+                    <div class="legend-item"><span class="legend-dot radioactive"></span> 放射性</div>
+                    <div class="legend-item"><span class="legend-dot cation"></span> 阳离子 (+)</div>
+                    <div class="legend-item"><span class="legend-dot anion"></span> 阴离子 (-)</div>
+                    <div class="legend-item"><span class="legend-dot bonded"></span> 已键合</div>
+                </div>
+
+                <div class="panel log-panel">
+                    <h3>事件日志</h3>
+                    <div id="event-log"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Transmutation Modal -->
+    <div id="transmutation-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <h3>核变 - 选择新元素</h3>
+            <div id="periodic-table" class="periodic-table"></div>
+            <div id="isotope-selector" style="display:none;">
+                <h4>选择同位素</h4>
+                <div id="isotope-options"></div>
+            </div>
+            <div class="modal-actions">
+                <button id="btn-cancel-transmutation">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
