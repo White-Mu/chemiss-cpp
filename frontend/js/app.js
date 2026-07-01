@@ -34,14 +34,17 @@ const ChemissApp = (function() {
     };
 
     function init() {
+        renderBoard(); // Render empty board immediately
         connectWebSocket();
         setupEventListeners();
     }
 
     function connectWebSocket() {
+        updateConnectionStatus('connecting', '连接服务器中...');
         ws = new WebSocket(WS_URL);
         ws.onopen = () => {
             console.log('Connected to Chemiss server');
+            updateConnectionStatus('connected', '已连接');
             requestState();
         };
         ws.onmessage = (event) => {
@@ -54,11 +57,20 @@ const ChemissApp = (function() {
         };
         ws.onclose = () => {
             console.log('Connection closed, retrying in 2s...');
+            updateConnectionStatus('disconnected', '连接断开，2秒后重试...');
             setTimeout(connectWebSocket, 2000);
         };
         ws.onerror = (err) => {
             console.error('WebSocket error:', err);
+            updateConnectionStatus('error', '连接失败');
         };
+    }
+
+    function updateConnectionStatus(status, text) {
+        const el = document.getElementById('connection-status');
+        if (!el) return;
+        el.textContent = text;
+        el.className = 'connection-status ' + status;
     }
 
     function send(msg) {
@@ -111,9 +123,7 @@ const ChemissApp = (function() {
         const boardEl = document.getElementById('board');
         boardEl.innerHTML = '';
         
-        if (!gameState || !gameState.board) return;
-
-        // Create empty cells
+        // Always render empty cells (even without gameState)
         for (let r = 0; r < 8; r++) {
             for (let c = 0; c < 8; c++) {
                 const cell = document.createElement('div');
@@ -124,6 +134,8 @@ const ChemissApp = (function() {
                 boardEl.appendChild(cell);
             }
         }
+        
+        if (!gameState || !gameState.board) return;
 
         // Place pieces
         const pieces = gameState.board.pieces || [];

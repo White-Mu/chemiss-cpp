@@ -62,6 +62,32 @@ header h1 {
     border-radius: 20px;
 }
 
+.connection-status {
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+}
+
+.connection-status.connecting {
+    background: #f0a500;
+    color: #1a1a2e;
+}
+
+.connection-status.connected {
+    background: #00d26a;
+    color: #1a1a2e;
+}
+
+.connection-status.disconnected {
+    background: #888;
+    color: #fff;
+}
+
+.connection-status.error {
+    background: #e94560;
+    color: #fff;
+}
+
 .controls {
     display: flex;
     justify-content: center;
