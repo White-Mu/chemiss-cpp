@@ -226,7 +226,7 @@ void WebSocketServer::handleClient(int clientSocket) {
             
             // Send initial game state
             if (gameState_) {
-                sendTo(clientSocket, "{\"type\":\"state\",\"data\":" + gameState_->toJson() + "}");
+                sendTo(clientSocket, "{\"type\":\"state\",\"state\":" + gameState_->toJson() + "}");
             }
             
             // WebSocket read loop
